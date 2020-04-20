@@ -6,21 +6,26 @@ export default class extends React.Component {
   state = {
     movieResults: null,
     tvResults: null,
-    searchTerm: "code",
+    searchTerm: "",
+    searchedTerm: "",
     loading: false,
     error: null,
   };
 
-  async componentDidMount() {
-    await this.handleSubmit();
-  }
-
-  handleSubmit = () => {
+  handleSubmit = async (event) => {
+    event.preventDefault();
     const { searchTerm } = this.state;
     if (searchTerm !== "") {
-      console.log("HI");
-      this.searchByTerm();
+      await this.searchByTerm();
     }
+    this.setState({ searchedTerm: searchTerm, searchTerm: "" });
+  };
+
+  updateTerm = (event) => {
+    const {
+      target: { value },
+    } = event;
+    this.setState({ searchTerm: value });
   };
 
   searchByTerm = async () => {
@@ -45,15 +50,24 @@ export default class extends React.Component {
   };
 
   render() {
-    const { movieResults, tvResults, searchTerm, loading, error } = this.state;
+    const {
+      movieResults,
+      tvResults,
+      searchTerm,
+      searchedTerm,
+      loading,
+      error,
+    } = this.state;
     return (
       <SearchPresenter
         movieResults={movieResults}
         tvResults={tvResults}
         searchTerm={searchTerm}
+        searchedTerm={searchedTerm}
         loading={loading}
         error={error}
         handleSubmit={this.handleSubmit}
+        updateTerm={this.updateTerm}
       />
     );
   }
