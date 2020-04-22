@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Helmet } from "react-helmet";
 import styled from "styled-components";
 import Loader from "Components/Loader";
 import Section from "Components/Section";
@@ -7,7 +8,7 @@ import Message from "Components/Message";
 import Poster from "Components/Poster";
 
 const Container = styled.div`
-  padding: 0px 10px;
+  padding: 20px;
 `;
 const Form = styled.form`
   margin-bottom: 50px;
@@ -30,6 +31,9 @@ const SearchPresenter = ({
   updateTerm,
 }) => (
   <Container>
+    <Helmet>
+      <title>Searching here</title>
+    </Helmet>
     <Form onSubmit={handleSubmit}>
       <Input
         placeholder="Search Movie or TV.."
@@ -44,14 +48,29 @@ const SearchPresenter = ({
         {movieResults && movieResults.length > 0 && (
           <Section title="Movies">
             {movieResults.map((movie) => (
-              <span key={movie.id}>{movie.title}</span>
+              <Poster
+                key={movie.id}
+                id={movie.id}
+                imageUrl={movie.poster_path}
+                title={movie.original_title}
+                rating={movie.vote_average}
+                year={movie.release_date && movie.release_date.substring(0, 4)}
+                isMovie={true}
+              />
             ))}
           </Section>
         )}
         {tvResults && tvResults.length > 0 && (
           <Section title="TV Show">
             {tvResults.map((tv) => (
-              <span key={tv.id}>{tv.name}</span>
+              <Poster
+                key={tv.id}
+                id={tv.id}
+                imageUrl={tv.poster_path}
+                title={tv.original_name}
+                rating={tv.vote_average}
+                year={tv.first_air_date && tv.first_air_date.substring(0, 4)}
+              />
             ))}
           </Section>
         )}

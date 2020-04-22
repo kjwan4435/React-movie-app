@@ -11,12 +11,13 @@ export default class extends React.Component {
     this.state = {
       result: null,
       error: null,
-      loading: false,
+      loading: true,
       isMovie: pathname.includes("/movie/"),
     };
   }
 
   componentDidMount = async () => {
+    console.log(this.props);
     const {
       match: {
         params: { id },
@@ -25,7 +26,6 @@ export default class extends React.Component {
     } = this.props;
     const { isMovie } = this.state;
     const parsedId = parseInt(id);
-    console.log(parsedId);
     if (isNaN(parsedId)) {
       return push("/");
     }
@@ -47,6 +47,7 @@ export default class extends React.Component {
 
   render() {
     const { result, error, loading } = this.state;
+    console.log(this.state);
     return <DetailPresenter result={result} error={error} loading={loading} />;
   }
 }
