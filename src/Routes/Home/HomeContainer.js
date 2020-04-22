@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import HomePresenter from "./HomePresenter";
-import { moviesApi } from "api";
+import { moviesApi } from "../../api";
 
 export default class extends Component {
   state = {
