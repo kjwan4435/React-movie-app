@@ -2,10 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Helmet } from "react-helmet";
 import styled from "styled-components";
-import Loader from "Components/Loader";
-import Section from "Components/Section";
-import Message from "Components/Message";
-import Poster from "Components/Poster";
+import Loader from "../../Components/Loader";
+import Section from "../../Components/Section";
+import Message from "../../Components/Message";
+import Poster from "../../Components/Poster";
 
 const Container = styled.div`
   padding: 20px;
